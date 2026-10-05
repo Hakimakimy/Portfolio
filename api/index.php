@@ -1,12 +1,46 @@
 <?php
-// Portfolio Configuration & Data Setup
-$studentName = "Your Name";
+// Student Profile & Configuration
+$studentName = "Hakima Bouabidi";
 $specialty = "Développement Digital - 2ème Année";
 $institution = "OFPPT - ISTA / ISGI";
-$contactEmail = "student@example.com";
-$githubUrl = "https://github.com/yourusername";
-$linkedinUrl = "https://linkedin.com/in/yourusername";
+$contactEmail = "hakima.bouabidi@example.com";
+$githubUrl = "https://github.com/hakimabouabidi";
+$linkedinUrl = "https://linkedin.com/in/hakimabouabidi";
 
+// Directory setup for uploaded photos
+$uploadDir = "uploads/";
+if (!file_exists($uploadDir)) {
+    mkdir($uploadDir, 0777, true);
+}
+
+// Handle Image Upload Process
+$uploadMessage = "";
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['exercise_photo'])) {
+    $moduleId = $_POST['module_id'] ?? '';
+    
+    if ($moduleId && isset($_FILES['exercise_photo']['name']) && $_FILES['exercise_photo']['error'] === UPLOAD_ERR_OK) {
+        $fileTmpPath = $_FILES['exercise_photo']['tmp_name'];
+        $fileName = $_FILES['exercise_photo']['name'];
+        $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+        
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+        if (in_array($fileExtension, $allowedExtensions)) {
+            // Unique filename per module upload
+            $newFileName = $moduleId . '_' . time() . '.' . $fileExtension;
+            $destPath = $uploadDir . $newFileName;
+            
+            if (move_uploaded_file($fileTmpPath, $destPath)) {
+                $uploadMessage = "Photo uploaded successfully for module: " . htmlspecialchars($moduleId);
+            } else {
+                $uploadMessage = "Error uploading image to destination folder.";
+            }
+        } else {
+            $uploadMessage = "Invalid file type. Please upload JPG, PNG, GIF, or WEBP images.";
+        }
+    }
+}
+
+// Technical Skills Matrix
 $skills = [
     'Front-End' => ['HTML5 / CSS3', 'JavaScript (ES6+)', 'React.js', 'Tailwind CSS', 'Bootstrap'],
     'Back-End' => ['PHP (Native / OOP)', 'Laravel Framework', 'Node.js', 'REST API Architecture'],
@@ -14,12 +48,14 @@ $skills = [
     'Tools & DevOps' => ['Git & GitHub', 'Postman', 'Docker', 'Agile / Scrum']
 ];
 
+// OFPPT 2nd Year Modules List (M201 - M206)
 $modules = [
     [
-        'id' => 'backend',
-        'title' => 'Back-End Web Development (Laravel & PHP)',
-        'description' => 'Building RESTful APIs, MVC structure, authentication with Sanctum, Eloquent ORM, and middleware handling.',
-        'exercise' => 'E-Commerce Management API with Role-Based Access Control.',
+        'code' => 'M201',
+        'id' => 'm201_backend',
+        'title' => 'M201 - Développer le back-end d\'une application web (PHP / Laravel)',
+        'description' => 'Architecture MVC, Eloquent ORM, API RESTful, authentification (Sanctum/JWT), middleware, et migrations.',
+        'exercise' => 'Création d\'une API REST d\'authentification et gestion d\'un catalogue produits.',
         'code_snippet' => '<?php
 namespace App\Http\Controllers;
 
@@ -33,26 +69,28 @@ class ProductController extends Controller {
 }'
     ],
     [
-        'id' => 'frontend',
-        'title' => 'Front-End Development (React.js)',
-        'description' => 'Component architecture, state management with Redux Toolkit, asynchronous HTTP requests using Axios, and client-side routing.',
-        'exercise' => 'Dynamic Management Dashboard connected to REST Backend.',
+        'code' => 'M202',
+        'id' => 'm202_frontend',
+        'title' => 'M202 - Développer le front-end d\'une application web (React.js)',
+        'description' => 'Composants React, Hooks (useState, useEffect), gestion d\'état global avec Redux Toolkit, et requêtes Axios.',
+        'exercise' => 'Tableau de bord dynamique connecté à une API REST.',
         'code_snippet' => 'import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function Dashboard() {
-  const [data, setData] = useState([]);
+  const [items, setItems] = useState([]);
   useEffect(() => {
-    axios.get("/api/products").then(res => setData(res.data));
+    axios.get("/api/products").then(res => setItems(res.data));
   }, []);
-  return <div className="p-4">Loaded {data.length} items</div>;
+  return <div className="p-4">Total Produit: {items.length}</div>;
 }'
     ],
     [
-        'id' => 'database',
-        'title' => 'Database Design & SQL Stored Procedures',
-        'description' => 'Conceptual data modeling (UML/Merise), database normalization, complex SQL joins, triggers, and transactions.',
-        'exercise' => 'Inventory System Database Optimization & Automated Triggers.',
+        'code' => 'M203',
+        'id' => 'm203_database',
+        'title' => 'M203 - Administrer et développer des bases de données (SQL / PLSQL)',
+        'description' => 'Modélisation UML/Merise, requêtes SQL avancées, procédures stockées, déclencheurs (Triggers), et transactions.',
+        'exercise' => 'Optimisation de base de données relationnelle et écriture de déclencheurs automatiques.',
         'code_snippet' => 'CREATE TRIGGER update_stock_after_sale
 AFTER INSERT ON sale_details
 FOR EACH ROW
@@ -63,10 +101,11 @@ BEGIN
 END;'
     ],
     [
-        'id' => 'mobile',
-        'title' => 'Mobile Application Development',
-        'description' => 'Cross-platform app design, native navigation, local data persistence (AsyncStorage/SQLite), and API synchronization.',
-        'exercise' => 'Mobile Task & Ticket Tracker with Offline Fallback.',
+        'code' => 'M204',
+        'id' => 'm204_mobile',
+        'title' => 'M204 - Développer des applications mobiles (React Native / Flutter)',
+        'description' => 'Interface mobile multiplateforme, navigation native, stockage local (AsyncStorage/SQLite), et synchronisation API.',
+        'exercise' => 'Application mobile de gestion de tâches avec sauvegarde locale.',
         'code_snippet' => 'import { View, Text, FlatList } from "react-native";
 
 export default function TaskList({ tasks }) {
@@ -77,15 +116,40 @@ export default function TaskList({ tasks }) {
     />
   );
 }'
+    ],
+    [
+        'code' => 'M205',
+        'id' => 'm205_agile',
+        'title' => 'M205 - Analyse et conception logicielle (UML & Agile)',
+        'description' => 'Diagrammes de cas d\'utilisation, diagrammes de classes, diagrammes de séquence, et méthodologie Scrum.',
+        'exercise' => 'Dossier d\'analyse et conception complète pour une plateforme e-commerce.',
+        'code_snippet' => 'System: E-Commerce Platform
+Actor: Client, Administrateur
+
+Use Cases:
+- Authentification
+- Passer une commande
+- Gérer le catalogue produits (Admin)'
+    ],
+    [
+        'code' => 'M206',
+        'id' => 'm206_pfe',
+        'title' => 'M206 - Projet de Fin d\'Etudes (PFE)',
+        'description' => 'Conception et réalisation d\'une application Full-Stack complète intégrant l\'ensemble des compétences acquises.',
+        'exercise' => 'Application Web & Mobile de gestion globale d\'entreprise.',
+        'code_snippet' => '// Stack Technique PFE:
+// Front-end: React.js / Tailwind CSS
+// Back-end: Laravel REST API
+// Base de données: MySQL'
     ]
 ];
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $studentName; ?> - OFPPT Portfolio</title>
+    <title>Portfolio - <?php echo $studentName; ?></title>
     <style>
         :root {
             --primary: #0284c7;
@@ -96,6 +160,7 @@ export default function TaskList({ tasks }) {
             --text-muted: #94a3b8;
             --accent: #38bdf8;
             --border: #334155;
+            --success: #22c55e;
         }
 
         * {
@@ -117,7 +182,6 @@ export default function TaskList({ tasks }) {
             margin: 0 auto;
         }
 
-        /* Header / Banner */
         header {
             background: linear-gradient(135deg, #1e293b, #0f172a);
             border: 1px solid var(--border);
@@ -143,6 +207,7 @@ export default function TaskList({ tasks }) {
             display: flex;
             justify-content: center;
             gap: 15px;
+            flex-wrap: wrap;
         }
 
         .contact-links a {
@@ -159,7 +224,16 @@ export default function TaskList({ tasks }) {
             background-color: var(--primary-dark);
         }
 
-        /* Skills Grid */
+        .alert-message {
+            background-color: #064e3b;
+            color: #6ee7b7;
+            border: 1px solid #047857;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
         .section-title {
             font-size: 1.8rem;
             border-bottom: 2px solid var(--primary);
@@ -204,26 +278,18 @@ export default function TaskList({ tasks }) {
             left: 0;
         }
 
-        /* Module Sections */
         .module-card {
             background-color: var(--card-bg);
             border: 1px solid var(--border);
             border-radius: 10px;
             padding: 25px;
-            margin-bottom: 25px;
-        }
-
-        .module-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
+            margin-bottom: 30px;
         }
 
         .module-header h3 {
             color: var(--accent);
-            font-size: 1.3rem;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
         }
 
         .exercise-grid {
@@ -239,7 +305,6 @@ export default function TaskList({ tasks }) {
             }
         }
 
-        /* Code & Image Boxes */
         pre {
             background-color: #090d16;
             padding: 15px;
@@ -250,23 +315,59 @@ export default function TaskList({ tasks }) {
             color: #a7f3d0;
         }
 
-        .photo-placeholder {
+        .upload-section {
             border: 2px dashed var(--border);
-            border-radius: 6px;
+            border-radius: 8px;
             background-color: #131b2e;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 180px;
+            padding: 20px;
             text-align: center;
-            padding: 15px;
-            color: var(--text-muted);
         }
 
-        .photo-placeholder img {
-            max-width: 100%;
-            border-radius: 4px;
+        .upload-form {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .upload-form input[type="file"] {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .upload-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .upload-btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .gallery-grid img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            transition: transform 0.2s ease;
+        }
+
+        .gallery-grid img:hover {
+            transform: scale(1.05);
         }
 
         footer {
@@ -287,13 +388,19 @@ export default function TaskList({ tasks }) {
         <h1><?php echo $studentName; ?></h1>
         <p><?php echo $specialty; ?> | <?php echo $institution; ?></p>
         <div class="contact-links">
-            <a href="mailto:<?php echo $contactEmail; ?>">Email Me</a>
-            <a href="<?php echo $githubUrl; ?>" target="_blank">GitHub</a>
-            <a href="<?php echo $linkedinUrl; ?>" target="_blank">LinkedIn</a>
+            <a href="mailto:<?php echo $contactEmail; ?>">Contact Email</a>
+            <a href="<?php echo $githubUrl; ?>" target="_blank">GitHub Profile</a>
+            <a href="<?php echo $linkedinUrl; ?>" target="_blank">LinkedIn Profile</a>
         </div>
     </header>
 
-    <!-- Technical Skills -->
+    <?php if ($uploadMessage): ?>
+        <div class="alert-message">
+            <?php echo $uploadMessage; ?>
+        </div>
+    <?php endif; ?>
+
+    <!-- Technical Skills Matrix -->
     <h2 class="section-title">Technical Skills Matrix</h2>
     <div class="skills-grid">
         <?php foreach ($skills as $category => $techList): ?>
@@ -308,8 +415,8 @@ export default function TaskList({ tasks }) {
         <?php endforeach; ?>
     </div>
 
-    <!-- Modules and Exercise Visuals -->
-    <h2 class="section-title">2nd Year Modules & Exercise Work</h2>
+    <!-- Modules List (M201 to M206) -->
+    <h2 class="section-title">2ème Année Modules & Exercises Showcase</h2>
 
     <?php foreach ($modules as $module): ?>
         <div class="module-card" id="<?php echo $module['id']; ?>">
@@ -317,21 +424,41 @@ export default function TaskList({ tasks }) {
                 <h3><?php echo $module['title']; ?></h3>
             </div>
             <p><strong>Overview:</strong> <?php echo $module['description']; ?></p>
-            <p><strong>Featured Exercise:</strong> <?php echo $module['exercise']; ?></p>
+            <p style="margin-top: 5px;"><strong>Exercice Clé:</strong> <?php echo $module['exercise']; ?></p>
 
             <div class="exercise-grid">
                 <!-- Code Snippet Box -->
                 <div>
-                    <p style="margin-bottom: 8px; color: var(--accent);"><strong>Exercise Code Structure:</strong></p>
+                    <p style="margin-bottom: 8px; color: var(--accent);"><strong>Exemple de Code:</strong></p>
                     <pre><code><?php echo htmlspecialchars($module['code_snippet']); ?></code></pre>
                 </div>
 
-                <!-- Exercise Photo Output Slot -->
-                <div>
-                    <p style="margin-bottom: 8px; color: var(--accent);"><strong>Exercise Result / Screenshot:</strong></p>
-                    <div class="photo-placeholder">
-                        <p>📷 <strong>Insert Screenshot Here</strong></p>
-                        <small>Place your execution screenshot or Postman result image for this module inside your project folder and link it via an <code>&lt;img&gt;</code> tag.</small>
+                <!-- Exercise Photo Upload & Gallery Section -->
+                <div class="upload-section">
+                    <p style="margin-bottom: 10px; color: var(--accent);"><strong>📸 Exercise Screenshots:</strong></p>
+                    
+                    <!-- Upload Form -->
+                    <form action="#<?php echo $module['id']; ?>" method="POST" enctype="multipart/form-data" class="upload-form">
+                        <input type="hidden" name="module_id" value="<?php echo $module['id']; ?>">
+                        <input type="file" name="exercise_photo" accept="image/*" required>
+                        <button type="submit" class="upload-btn">Upload Exercise Photo</button>
+                    </form>
+
+                    <!-- Photo Gallery for this Module -->
+                    <div class="gallery-grid">
+                        <?php
+                        $uploadedPhotos = glob($uploadDir . $module['id'] . "_*.*");
+                        if (!empty($uploadedPhotos)):
+                            foreach ($uploadedPhotos as $photoPath): ?>
+                                <a href="<?php echo $photoPath; ?>" target="_blank">
+                                    <img src="<?php echo $photoPath; ?>" alt="Exercise Screenshot">
+                                </a>
+                            <?php endforeach;
+                        else: ?>
+                            <p style="grid-column: 1/-1; color: var(--text-muted); font-size: 0.85rem;">
+                                No photos uploaded yet for <?php echo $module['code']; ?>. Select an image above and click Upload.
+                            </p>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -340,7 +467,7 @@ export default function TaskList({ tasks }) {
 
     <!-- Footer -->
     <footer>
-        <p>&copy; <?php echo date("Y"); ?> <?php echo $studentName; ?> - OFPPT Digital Development Trainee Portfolio</p>
+        <p>&copy; <?php echo date("Y"); ?> <?php echo $studentName; ?> - Portfolio Développement Digital OFPPT</p>
     </footer>
 
 </div>
