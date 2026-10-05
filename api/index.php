@@ -5,11 +5,7 @@ $specialty = "Développement Digital - Option Web / Full-Stack";
 $institution = "OFPPT - ISTA / ISGI";
 $contactEmail = "hakima.bouabidi@example.com";
 $githubUrl = "https://github.com/hakimabouabidi";
-$linkedinUrl = "https://linkedin.com/in/hakimabouabidi";
 $academicYear = "2025/2026";
-
-// Path for Profile Picture (يمكنك وضع صورتك هنا أو مسار الصورة)
-$profilePicturePath = "https://placehold.co/200x200/1b4d3e/a67c52?text=Hakima"; 
 
 // Directory setup for uploaded photos
 $uploadDir = "uploads/";
@@ -170,33 +166,33 @@ Use Cases:
     
     <style>
         :root {
-            --bg-dark: #0a1a14; 
-            --deep-green: #1b4d3e;
-            --luxury-brown: #a67c52;
-            --luxury-brown-hover: #c49567;
-            --accent-green: #2ecc71;
-            --text-light: #f0f4f2;
-            --text-muted: #a0b3aa;
-            --glass-bg: rgba(27, 77, 62, 0.15);
-            --card-bg: rgba(13, 30, 24, 0.75);
-            --border-color: rgba(166, 124, 82, 0.25);
+            --bg-dark: #120a14; 
+            --deep-green: #2b1128;
+            --luxury-brown: #e082b2;
+            --luxury-brown-hover: #f0a0cc;
+            --accent-green: #f39c12;
+            --text-light: #fcf5f9;
+            --text-muted: #cbb4c8;
+            --glass-bg: rgba(43, 17, 40, 0.25);
+            --card-bg: rgba(28, 12, 26, 0.85);
+            --border-color: rgba(224, 130, 178, 0.25);
             --shadow: 0 15px 35px rgba(0,0,0,0.6);
             --font-code: 'Fira Code', 'Consolas', monospace;
             --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
         body.purple-mode {
-            --bg-dark: #120a1a; 
-            --deep-green: #2d1b4d;
-            --luxury-brown: #d4a373; 
-            --luxury-brown-hover: #e8bd93;
-            --accent-green: #9b59b6;
-            --text-light: #f3edfc;
-            --text-muted: #bfa8d8;
-            --glass-bg: rgba(45, 27, 77, 0.2);
-            --card-bg: rgba(22, 13, 32, 0.8);
-            --border-color: rgba(212, 163, 115, 0.3);
-            --shadow: 0 15px 35px rgba(155, 89, 182, 0.25);
+            --bg-dark: #0f0c1b; 
+            --deep-green: #1d173b;
+            --luxury-brown: #a88beb; 
+            --luxury-brown-hover: #c4b0f7;
+            --accent-green: #ff7675;
+            --text-light: #f5f3ff;
+            --text-muted: #b9b3d6;
+            --glass-bg: rgba(29, 23, 59, 0.3);
+            --card-bg: rgba(21, 17, 38, 0.85);
+            --border-color: rgba(168, 139, 235, 0.3);
+            --shadow: 0 15px 35px rgba(168, 139, 235, 0.2);
         }
 
         * { box-sizing: border-box; scroll-behavior: smooth; }
@@ -211,7 +207,7 @@ Use Cases:
         }
 
         header {
-            background: rgba(10, 26, 20, 0.85);
+            background: rgba(18, 10, 20, 0.85);
             backdrop-filter: blur(12px);
             padding: 0 5%;
             display: flex;
@@ -233,7 +229,7 @@ Use Cases:
 
         .logo span.badge {
             font-size: 0.65rem;
-            background: rgba(166, 124, 82, 0.15);
+            background: rgba(224, 130, 178, 0.15);
             border: 1px solid var(--luxury-brown);
             color: var(--luxury-brown);
             padding: 2px 8px;
@@ -252,38 +248,18 @@ Use Cases:
         nav a:hover { color: var(--luxury-brown); }
 
         .theme-toggle-btn {
-            background: linear-gradient(135deg, var(--luxury-brown), #7d5a37);
+            background: linear-gradient(135deg, var(--luxury-brown), #914870);
             color: white; border: none; padding: 8px 16px;
             border-radius: 20px; cursor: pointer;
             font-size: 0.75rem; font-weight: 700; transition: 0.3s;
             display: flex; align-items: center; gap: 6px;
         }
 
-        /* Hero Section with Female Profile Picture Placeholder */
         .hero {
-            min-height: 65vh; display: flex; flex-direction: column;
+            min-height: 60vh; display: flex; flex-direction: column;
             justify-content: center; align-items: center;
             background: radial-gradient(circle at center, var(--deep-green) 0%, var(--bg-dark) 75%);
-            padding: 50px 20px 40px; text-align: center;
-        }
-
-        .profile-wrapper {
-            position: relative;
-            margin-bottom: 20px;
-        }
-
-        .profile-img {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid var(--luxury-brown);
-            box-shadow: 0 0 25px rgba(166, 124, 82, 0.4);
-            transition: transform 0.3s ease;
-        }
-
-        .profile-img:hover {
-            transform: scale(1.05);
+            padding: 40px 20px; text-align: center;
         }
 
         .hero h1 { font-size: 3rem; margin: 0; font-weight: 900; }
@@ -292,7 +268,7 @@ Use Cases:
 
         .btn-container { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
         .btn-main {
-            background: linear-gradient(135deg, var(--luxury-brown), #7d5a37);
+            background: linear-gradient(135deg, var(--luxury-brown), #914870);
             color: white; padding: 12px 28px; border-radius: 8px;
             text-decoration: none; font-weight: 700; transition: 0.3s;
             display: inline-flex; align-items: center; gap: 8px;
@@ -305,7 +281,6 @@ Use Cases:
         }
         .btn-main:hover, .btn-secondary:hover { transform: translateY(-3px); }
 
-        /* Skills Matrix Section */
         .skills-section {
             padding: 40px 5%;
             max-width: 1400px;
@@ -348,7 +323,6 @@ Use Cases:
             content: '❖'; color: var(--luxury-brown); font-size: 0.7rem;
         }
 
-        /* Modules Section */
         .modules-nav-wrapper {
             position: sticky; top: 75px; z-index: 900;
             background: var(--bg-dark); border-bottom: 1px solid var(--border-color);
@@ -373,10 +347,10 @@ Use Cases:
         .module-header { padding: 22px 25px 15px; border-bottom: 1px solid rgba(255,255,255,0.05); }
         .module-code {
             font-family: var(--font-code); font-size: 0.75rem; color: var(--accent-green);
-            background: rgba(46, 204, 113, 0.1); padding: 3px 10px; border-radius: 12px;
+            background: rgba(243, 156, 18, 0.1); padding: 3px 10px; border-radius: 12px;
         }
         .module-tech-stack { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
-        .tech-tag { font-size: 0.7rem; background: rgba(166, 124, 82, 0.12); color: var(--luxury-brown); padding: 2px 8px; border-radius: 4px; }
+        .tech-tag { font-size: 0.7rem; background: rgba(224, 130, 178, 0.12); color: var(--luxury-brown); padding: 2px 8px; border-radius: 4px; }
 
         .exercise-area { padding: 20px 25px; background: rgba(0,0,0,0.15); flex-grow: 1; }
         
@@ -399,7 +373,7 @@ Use Cases:
             cursor: pointer; transition: 0.3s; font-size: 0.8rem;
             color: var(--text-muted);
         }
-        .file-label:hover { border-color: var(--luxury-brown); background: rgba(166,124,82,0.08); }
+        .file-label:hover { border-color: var(--luxury-brown); background: rgba(224,130,178,0.08); }
         .file-input { display: none; }
         .submit-btn {
             width: 100%; margin-top: 8px; background: var(--luxury-brown);
@@ -409,8 +383,8 @@ Use Cases:
         .submit-btn:hover { background: var(--luxury-brown-hover); }
 
         .alert-box {
-            background: rgba(46, 204, 113, 0.15); border: 1px solid var(--accent-green);
-            color: var(--accent-green); padding: 12px 20px; border-radius: 8px;
+            background: rgba(224, 130, 178, 0.15); border: 1px solid var(--luxury-brown);
+            color: var(--luxury-brown); padding: 12px 20px; border-radius: 8px;
             margin: 20px 5%; text-align: center; font-family: var(--font-code);
         }
 
@@ -422,13 +396,13 @@ Use Cases:
     <header>
         <a href="#" class="logo">
             <i class="fa-solid fa-code"></i> <?php echo htmlspecialchars($studentName); ?> 
-            <span class="badge">DEVELOPPEUSE DIGITAL</span>
+            <span class="badge">DEV FULL-STACK</span>
         </a>
         <nav>
             <a href="#skills"><i class="fa-solid fa-laptop-code"></i> Compétences</a>
             <a href="#modules"><i class="fa-solid fa-cubes"></i> Modules</a>
             <button class="theme-toggle-btn" onclick="toggleTheme()">
-                <i class="fa-solid fa-circle-half-stroke"></i> <span id="themeText">ROYAL MODE</span>
+                <i class="fa-solid fa-circle-half-stroke"></i> <span id="themeText">ROSE MODE</span>
             </button>
         </nav>
     </header>
@@ -438,20 +412,14 @@ Use Cases:
     <?php endif; ?>
 
     <section class="hero">
-        <!-- Place for Profile Picture -->
-        <div class="profile-wrapper">
-            <img src="<?php echo $profilePicturePath; ?>" alt="<?php echo htmlspecialchars($studentName); ?>" class="profile-img">
-        </div>
         <h1>Développeuse <span>Full-Stack</span></h1>
         <p>> <?php echo htmlspecialchars($institution); ?> | <?php echo htmlspecialchars($specialty); ?></p>
         <div class="btn-container">
             <a href="<?php echo htmlspecialchars($githubUrl); ?>" target="_blank" class="btn-main"><i class="fa-brands fa-github"></i> GitHub</a>
-            <a href="<?php echo htmlspecialchars($linkedinUrl); ?>" target="_blank" class="btn-secondary"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
             <a href="mailto:<?php echo htmlspecialchars($contactEmail); ?>" class="btn-secondary"><i class="fa-solid fa-envelope"></i> Contact</a>
         </div>
     </section>
 
-    <!-- Technical Skills Matrix -->
     <section class="skills-section" id="skills">
         <h2 class="section-title"><i class="fa-solid fa-layer-group"></i> Compétences Techniques</h2>
         <div class="skills-grid">
@@ -514,18 +482,16 @@ Use Cases:
     </section>
 
     <footer>
-        <p>&copy; <?php echo date("Y"); ?> <span><?php echo htmlspecialchars($studentName); ?></span> - Portfolio OFPPT Développeuse Digital</p>
+        <p>&copy; <?php echo date("Y"); ?> <span><?php echo htmlspecialchars($studentName); ?></span> - Portfolio OFPPT</p>
     </footer>
 
     <script>
-        // Toggle Dark / Purple Theme
         function toggleTheme() {
             document.body.classList.toggle('purple-mode');
             const isPurple = document.body.classList.contains('purple-mode');
-            document.getElementById('themeText').innerText = isPurple ? 'EMERALD MODE' : 'ROYAL MODE';
+            document.getElementById('themeText').innerText = isPurple ? 'VIOLET MODE' : 'ROSE MODE';
         }
 
-        // Filter Modules
         function filterModules(category) {
             document.querySelectorAll('.filter-tab').forEach(tab => tab.classList.remove('active'));
             event.target.classList.add('active');
